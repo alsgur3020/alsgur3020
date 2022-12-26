@@ -33,11 +33,11 @@ jobs:
           touch .env
           cat << EOF >> .env
           ${{ secrets.ENV }}
-
+          
       - name: build client files
         working-directory: ./client
         run: |
-          yarn install --frozen-lockfile
+          yarn install
           yarn build
 
       - name: zip distributions
@@ -51,11 +51,11 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./blog-vanilla.zip s3://blog-vanilla-bucket/public/
+        run: aws s3 cp --region ap-northeast-2 ./blog-vanilla.zip s3://testcha-github-action/public/
 
       - name: deploy with AWS codeDeploy
         run: aws deploy create-deployment
           --application-name blog-vanilla-codedeploy
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name deploy-group
-          --s3-location bucket=blog-vanilla-bucket,bundleType=zip,key=public/blog-vanilla.zip
+          --s3-location bucket=testcha-github-action,bundleType=zip,key=public/blog-vanilla.zip
