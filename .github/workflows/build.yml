@@ -18,9 +18,7 @@ on:
 name: test deploy
 
 env:
-  AWS_ACCESS_KEY: AKIA3BSYMHURZDHBCQPK
-  AWS_SECRET_KEY: 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
-  AWS_REGION: ap-northeast-2
+  PROJECT_NAME: action_codedeploy
 
 jobs:
   deploy:
@@ -28,13 +26,6 @@ jobs:
     runs-on: ubuntu-18.04
 
     steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-ket-id: ${{ env.AWS_ACCESS_KEY }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-      
       - name: Checkout
         uses: actions/checkout@v2
 
